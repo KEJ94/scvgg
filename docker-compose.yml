@@ -1,0 +1,22 @@
+services:
+  springboot:
+    build:
+      context: .
+      dockerfile: Dockerfile  # 기본 Dockerfile 사용
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  vue:
+    build:
+      context: ./vue3
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"  # Nginx의 80 포트를 8081 포트로 매핑
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
