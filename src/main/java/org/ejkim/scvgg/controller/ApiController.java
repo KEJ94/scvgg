@@ -8,6 +8,6 @@ public class ApiController {
 
     @GetMapping("/api/greeting")
     public String getGreeting() {
-        return "Hello SCV.GG ver2!";
+        return "Hello SCV.GG ver3!";
     }
 }

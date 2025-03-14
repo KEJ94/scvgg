@@ -21,6 +21,7 @@ onMounted(() => {
 <template>
     <div>
         <h1>{{ response }}</h1>  <!-- 서버 응답 표시 -->
+        aaabbb
     </div>
 </template>
 

@@ -1,0 +1,20 @@
+# Node.js 기반의 Vue 개발 환경 설정
+FROM node:18 AS dev
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# package.json과 package-lock.json을 먼저 복사하고 의존성 설치
+COPY package*.json ./
+RUN npm install
+
+# 전체 프로젝트 파일을 복사
+COPY . .
+
+# 실행 권한 부여 (vue-cli-service 실행 오류 방지)
+RUN chmod +x node_modules/.bin/vue-cli-service
+
+# 개발 서버 실행 (Hot Reload 활성화)
+EXPOSE 8081
+CMD ["npm", "run", "serve"]
+

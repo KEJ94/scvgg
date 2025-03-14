@@ -1,0 +1,31 @@
+services:
+  springboot:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Spring Boot Dockerfile.prod 사용
+    ports:
+      - "8080:8080"  # Spring Boot를 8080 포트에서 실행
+    networks:
+      - app-network
+
+  vue:
+    build:
+      context: ./vue3
+      dockerfile: Dockerfile.dev  # Vue 개발 환경용 Dockerfile.prod 사용
+    ports:
+      - "8081:8081"  # Vue 개발 서버의 포트를 올바르게 매핑
+    volumes:
+      - ./vue3:/app  # Vue 프로젝트 디렉토리를 컨테이너 내부와 동기화
+      - /app/node_modules  # node_modules 제외하여 의존성 충돌 방지
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # 파일 변경 감지 옵션
+      - WATCHPACK_POLLING=true  # 추가적인 변경 감지 설정
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+    command: npm run serve
+
+networks:
+  app-network:
+    driver: bridge
