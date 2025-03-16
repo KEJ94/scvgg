@@ -1,13 +1,22 @@
 package org.ejkim.scvgg.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.ejkim.scvgg.domain.User;
+import org.ejkim.scvgg.service.ApiUserService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequiredArgsConstructor
 public class ApiController {
 
-    @GetMapping("/api/greeting")
-    public String getGreeting() {
-        return "Hello SCV.GG ver3!";
+    private final ApiUserService apiUserService;
+
+    @GetMapping("/api/user/{id}")
+    public @ResponseBody User getGreeting(@PathVariable("id") String id) {
+        return apiUserService.findUser(id);
     }
 }
