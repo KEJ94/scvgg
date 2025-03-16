@@ -20,8 +20,12 @@ public class ApiUserService {
         this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
     }
 
-    public User findUser(String id) {
-        String url = "http://127.0.0.1:53268/web-api/v2/aurora-profile-by-toon/"+id+"/30?request_flags=scr_profile";
+    public User findUser(String region, String id) {
+        String url = "http://127.0.0.1:53268/web-api/v2/aurora-profile-by-toon/"
+                        +id
+                        +"/"
+                        +region+
+                        "?request_flags=scr_profile";
 
         // GET 요청 보내기
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -40,7 +44,7 @@ public class ApiUserService {
     }
 
     public static void main(String[] args) {
-        User user = new ApiUserService().findUser("Pay_SEA+");
+        User user = new ApiUserService().findUser("10", "DAY6");
         System.out.println(user.toString());
     }
 }

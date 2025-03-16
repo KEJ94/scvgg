@@ -15,8 +15,8 @@ public class ApiController {
 
     private final ApiUserService apiUserService;
 
-    @GetMapping("/api/user/{id}")
-    public @ResponseBody User getGreeting(@PathVariable("id") String id) {
-        return apiUserService.findUser(id);
+    @GetMapping("/api/user/{region}/{id}")
+    public @ResponseBody User getGreeting(@PathVariable("region") String region, @PathVariable("id") String id) {
+        return apiUserService.findUser(region, id);
     }
 }
