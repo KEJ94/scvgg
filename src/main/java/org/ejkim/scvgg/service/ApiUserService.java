@@ -21,7 +21,7 @@ public class ApiUserService {
     }
 
     public User findUser(String id) {
-        String url = "http://127.0.0.1:64324/web-api/v2/aurora-profile-by-toon/"+id+"/30?request_flags=scr_profile";
+        String url = "http://127.0.0.1:53268/web-api/v2/aurora-profile-by-toon/"+id+"/30?request_flags=scr_profile";
 
         // GET 요청 보내기
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
