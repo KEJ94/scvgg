@@ -111,6 +111,7 @@ const getRace = (race) => {
                 <div class="modal-layout" @click.stop>
                     <div class="modal-content">
                         <h3 class="sc-subtitle">배틀태그 : <span style="color:white">{{ response.battle_tag }}</span></h3>
+                        <br/>
                         <div class="sc-card-container">
                             <div v-for="(toon, index) in response.toons" :key="index" class="sc-card">
                                 <p><strong>아이디 : </strong> <span style="color:white">{{ toon.toon }}</span></p>
@@ -118,9 +119,8 @@ const getRace = (race) => {
                                 <p><strong>마지막 게임 : </strong> {{ toon.games_last_week }}주 전</p>
                             </div>
                         </div>
+                        <br/>
                         <div v-if="response.game_results.length > 0">
-                            <br/>
-                            <h3 class="sc-subtitle">최근 게임</h3>
                             <div v-for="(game, index) in filteredGameResults" :key="index" class="sc-card">
                                 <p><strong>최근 게임 {{ index + 1 }}</strong></p>
                                 <ul>
@@ -220,7 +220,7 @@ const getRace = (race) => {
 .sc-card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* 카드 사이의 간격 */
+    gap: 19px; /* 카드 사이의 간격 */
 }
 
 .sc-card-container .sc-card {
@@ -233,7 +233,6 @@ const getRace = (race) => {
     background: #0c1624;
     border: 2px solid #0074cc;
     padding: 10px;
-    margin-top: 10px;
     border-radius: 5px;
     text-align: left;
 }
