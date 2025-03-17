@@ -8,8 +8,6 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Player {
-    String result;
-    String toon;
-    Attributes attributes;
+public class Attributes {
+    String race;
 }

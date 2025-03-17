@@ -21,7 +21,7 @@ public class ApiUserService {
     }
 
     public User findUser(String region, String id) {
-        String url = "http://127.0.0.1:53268/web-api/v2/aurora-profile-by-toon/"
+        String url = "http://127.0.0.1:52661/web-api/v2/aurora-profile-by-toon/"
                         +id
                         +"/"
                         +region+

@@ -57,12 +57,34 @@ const getGameResult = (result) => {
     return '';  // 기본값은 빈 문자열
 };
 
+const getGateway = (gatewayId) => {
+    if (gatewayId === 10) {
+        return 'U.S West';
+    } else if (gatewayId === 11) {
+        return 'U.S East';
+    } else if (gatewayId === 20) {
+        return 'Europe';
+    } else if (gatewayId === 30) {
+        return 'Korea';
+    } else if (gatewayId === 45) {
+        return 'Asia';
+    }
+    return '';  // 기본값은 빈 문자열
+};
+
+const getRace = (race) => {
+    if(race === "terran") return "테란"
+    else if(race === "protoss") return "프로토스"
+    else if(race === "zerg") return "저그"
+    else return "랜덤"
+}
+
 </script>
 
 <template>
     <div class="sc-container">
         <div class="sc-panel">
-            <h1 class="sc-title">StarCraft 1 Remastered<br>전적 검색</h1>
+            <h1 class="sc-title">스타크래프트 1 리마스터<br>전적 검색</h1>
             <div class="search-container">
                 <input
                     v-model="searchQuery"
@@ -71,8 +93,11 @@ const getGameResult = (result) => {
                     @keyup.enter="searchUser"
                 />
                 <select v-model="selectedRegion" class="sc-select">
-                    <option value="30">Korea</option>
                     <option value="10">U.S West</option>
+                    <option value="11">U.S East</option>
+                    <option value="20">Europe</option>
+                    <option value="30">Korea</option>
+                    <option value="45">Asia</option>
                 </select>
             </div>
             <button class="sc-button" @click="searchUser" :disabled="loading">
@@ -85,10 +110,13 @@ const getGameResult = (result) => {
             <div v-if="showModal" class="modal-overlay" @click="showModal = false">
                 <div class="modal-layout" @click.stop>
                     <div class="modal-content">
-                        <h3 class="sc-subtitle">배틀태그 : {{ response.battle_tag }}</h3>
-                        <div v-for="(toon, index) in response.toons" :key="index" class="sc-card">
-                            <p><strong>아이디 : </strong> {{ toon.toon }}</p>
-                            <p><strong>마지막 게임 : </strong> {{ toon.games_last_week }}주 전</p>
+                        <h3 class="sc-subtitle">배틀태그 : <span style="color:white">{{ response.battle_tag }}</span></h3>
+                        <div class="sc-card-container">
+                            <div v-for="(toon, index) in response.toons" :key="index" class="sc-card">
+                                <p><strong>아이디 : </strong> <span style="color:white">{{ toon.toon }}</span></p>
+                                <p><strong>게이트웨이 : </strong> {{ getGateway(toon.gateway_id) }}</p>
+                                <p><strong>마지막 게임 : </strong> {{ toon.games_last_week }}주 전</p>
+                            </div>
                         </div>
                         <div v-if="response.game_results.length > 0">
                             <br/>
@@ -97,9 +125,9 @@ const getGameResult = (result) => {
                                 <p><strong>최근 게임 {{ index + 1 }}</strong></p>
                                 <ul>
                                     <li v-for="(player, pIndex) in game.players" :key="pIndex">
-                                    <span :class="getPlayerClass(player.result)">{{ player.toon }}: {{
-                                            getGameResult(player.result)
-                                        }}</span>
+                                        <span :class="getPlayerClass(player.result)">
+                                            {{ getRace(player.attributes.race) }} {{ player.toon }} {{getGameResult(player.result) }}
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -188,6 +216,18 @@ const getGameResult = (result) => {
     color: #ff4b4b;
     margin-top: 10px;
 }
+
+.sc-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 카드 사이의 간격 */
+}
+
+.sc-card-container .sc-card {
+    width: calc(50% - 10px); /* 한 줄에 두 개 배치 */
+    box-sizing: border-box;
+}
+
 
 .sc-card {
     background: #0c1624;
