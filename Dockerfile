@@ -11,6 +11,9 @@ COPY gradlew gradlew.bat settings.gradle build.gradle ./
 COPY gradle ./gradle
 COPY src ./src
 
+# 빌드 실행 전
+RUN chmod +x gradlew
+
 # 빌드 실행 (프로젝트에 맞는 빌드 명령어 사용)
 RUN ./gradlew build -x test
 
