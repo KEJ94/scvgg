@@ -17,7 +17,7 @@ MacOS
 lsof -i -n -P | grep StarCraft
 ```
 
-### Windows Analyzer Server
+### Windows Server
 ```js
 const http = require('http');
 const url = require('url');
