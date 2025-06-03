@@ -3,7 +3,7 @@ package org.ejkim.scvgg;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.ejkim.scvgg")
 public class ScvggApplication {
 
     public static void main(String[] args) {

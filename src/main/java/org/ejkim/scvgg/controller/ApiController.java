@@ -3,12 +3,10 @@ package org.ejkim.scvgg.controller;
 import lombok.RequiredArgsConstructor;
 import org.ejkim.scvgg.domain.User;
 import org.ejkim.scvgg.service.ApiUserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 public class ApiController {
