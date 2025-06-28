@@ -7,7 +7,7 @@ const response = ref(null);
 const loading = ref(false);
 const errorMessage = ref('');
 const selectedRegion = ref('30'); // 기본값은 'KR'
-
+let profileImageUrl = ref('');
 const showModal = ref(false); // 모달 상태 관리
 
 const searchUser = async () => {
@@ -18,12 +18,27 @@ const searchUser = async () => {
     response.value = null;
 
     try {
+        const defaultAvatarUrl = 'https://scrassets.classic.blizzard.com/avatar-icons/S1/d2edd0800865e3a5e0c0c86898010f90.png';
+
         const res = await axios.get(`http://localhost:8080/api/user/${selectedRegion.value}/${searchQuery.value}`);
         response.value = res.data;
-        showModal.value = true; // 성공적으로 데이터를 가져오면 모달을 열기
+
+        // toon 이름 일치하는 프로필 찾기
+        const profileImage = response.value.profiles.find(
+            profile => profile.toon.toLowerCase() === searchQuery.value.toLowerCase()
+        )?.avatar_id;
+
+        // 해당 avatar_id로 URL 찾기
+        const matched = response.value.avatars_framed[profileImage];
+
+        // 결과 없으면 기본 이미지로 대체
+        profileImageUrl.value = matched?.url || defaultAvatarUrl;
+
+        showModal.value = true;
+
     } catch (error) {
         console.error('서버 요청 실패:', error);
-        errorMessage.value = '검색 중 오류가 발생했습니다. 다시 시도해주세요.';
+        errorMessage.value = '검색 결과가 없습니다.';
     } finally {
         loading.value = false;
     }
@@ -110,6 +125,14 @@ const getRace = (race) => {
             <div v-if="showModal" class="modal-overlay" @click="showModal = false">
                 <div class="modal-layout" @click.stop>
                     <div class="modal-content">
+                        {{ this.profileImageUrl }}
+                        {{ this.profileImageUrl }}
+                        {{ this.profileImageUrl }}
+                        <img
+                            :src="profileImageUrl"
+                            class="avatar-image"
+                            style="width:100px;"
+                        />
                         <h3 class="sc-subtitle">배틀태그 : <span style="color:white">{{ response.battle_tag }}</span></h3>
                         <br/>
                         <div class="sc-card-container">

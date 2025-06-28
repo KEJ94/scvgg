@@ -28,7 +28,7 @@ public class ApiUserService {
         //ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         // 로컬 Macbook
-        String baseUrl = "http://host.docker.internal:52596/web-api/v2/aurora-profile-by-toon/{id}/{region}";
+        String baseUrl = "http://host.docker.internal:64972/web-api/v2/aurora-profile-by-toon/{id}/{region}";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam("request_flags", "scr_profile");
 
