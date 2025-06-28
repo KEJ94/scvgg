@@ -125,9 +125,6 @@ const getRace = (race) => {
             <div v-if="showModal" class="modal-overlay" @click="showModal = false">
                 <div class="modal-layout" @click.stop>
                     <div class="modal-content">
-                        {{ this.profileImageUrl }}
-                        {{ this.profileImageUrl }}
-                        {{ this.profileImageUrl }}
                         <img
                             :src="profileImageUrl"
                             class="avatar-image"
